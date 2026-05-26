@@ -85,14 +85,14 @@ except: pass
 # ============================================================
 print("📊 拉取自选股数据...", flush=True)
 stk_raw = http_get(
-    "https://hq.sinajs.cn/list=sh600089,sh600584,sh601288,sz002077",
+    "https://hq.sinajs.cn/list=sh600089,sh601288,sz002077,sz002156,sh603005",
     {"Referer": "https://finance.sina.com.cn", "User-Agent": "Mozilla/5.0"}
 )
 stk = parse_sina(stk_raw)
 
 STOCK_NAMES = {
-    "sh600089": "特变电工", "sh600584": "长电科技",
-    "sh601288": "农业银行", "sz002077": "大港股份"
+    "sh600089": "特变电工", "sh601288": "农业银行",
+    "sz002077": "大港股份", "sz002156": "通富微电", "sh603005": "晶方科技"
 }
 
 # ============================================================
@@ -154,7 +154,7 @@ if DEEPSEEK_KEY:
         if len(parts) >= 4:
             idx_summary += f"{name}: {parts[2]} ({parts[4]}%)\n"
 
-    prompt = f"你是一个A股复盘分析师。今天是{TODAY}。\n\n大盘概况：\n{idx_summary}\n热门板块：{sector_names}\n\n持仓表现：\n{stock_perf}\n\n请给出：\n1. 当日市场整体判断\n2. 持仓个股点评（涨跌原因、后续走势判断）\n3. 明日关注方向与操作建议\n4. 风险提示\n\n回答控制在300字以内，用中文。"
+    prompt = f"你是一个融合巴菲特价值投资理念的A股复盘分析师。今天是{TODAY}。\n\n大盘概况：\n{idx_summary}\n热门板块：{sector_names}\n\n持仓表现：\n{stock_perf}\n\n请给出：\n1. 当日市场整体判断\n2. 持仓个股点评（涨跌原因、后续走势判断）\n3. 明日关注方向与操作建议\n4. 风险提示\n\n回答控制在300字以内，用中文。"
 
     payload = {
         "model": "deepseek-v4-flash",
